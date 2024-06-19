@@ -1,10 +1,17 @@
 const mongoose = require("mongoose");
 
-const walletSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  balance: { type: Number, required: true },
-  dateCreated: { type: Date, default: Date.now },
-});
+const walletSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    balance: { type: Number, required: true },
+    dateCreated: { type: Date, default: Date.now },
+  },
+  { collection: "wallets" }
+);
 
 const Wallet = mongoose.model("Wallet", walletSchema);
 
