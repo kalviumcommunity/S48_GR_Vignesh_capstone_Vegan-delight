@@ -19,13 +19,13 @@ const employeeRouter = require("./routers/employeeRouter");
 const inventoryRouter = require("./routers/inventoryRouter");
 
 // Use Routes with Base API URL
-app.use("/users", userRouter);
-app.use("/fooditems", foodItemRouter);
-app.use("/subscriptions", subscriptionRouter);
-app.use("/wallets", walletRouter);
-app.use("/orders", orderRouter);
-app.use("/employees", employeeRouter);
-app.use("/inventory", inventoryRouter);
+app.use("/", userRouter);
+app.use("/", foodItemRouter);
+app.use("/", subscriptionRouter);
+app.use("/", walletRouter);
+app.use("/", orderRouter);
+app.use("/", employeeRouter);
+app.use("/", inventoryRouter);
 
 // Ping pong route (for testing)
 app.get("/ping", (req, res) => {
