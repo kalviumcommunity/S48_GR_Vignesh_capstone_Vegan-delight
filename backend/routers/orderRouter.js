@@ -6,4 +6,9 @@ const orderController = require("../controllers/orderController");
 orderRouter.get("/orders", orderController.getAllOrders);
 //Define the endpoint to create a new order
 orderRouter.post("/createorders", orderController.createOrder);
+//Define the endpoint to update an existing order
+orderRouter.put("/updateorder/:id", orderController.updateOrder);
+//Define the endpoint to Delete an existing order
+orderRouter.delete("/deleteorder/:id", orderController.deleteOrder);
+
 module.exports = orderRouter;

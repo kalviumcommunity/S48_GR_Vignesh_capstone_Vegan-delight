@@ -7,9 +7,20 @@ subscriptionRouter.get(
   "/subscriptions",
   subscriptionController.getAllSubscriptions
 );
-//Define the endpoint to create a new employee
+//Define the endpoint to create a new subscription
 subscriptionRouter.post(
   "/createsubscription",
   subscriptionController.createSubscription
 );
+//Define the endpoint to update an existing subscription
+subscriptionRouter.put(
+  "/updatesubscription/:id",
+  subscriptionController.updateSubscription
+);
+//Define the endpoint to Delete an existing subscription
+subscriptionRouter.delete(
+  "/delelesubscription/:id",
+  subscriptionController.deleteSubscription
+);
+
 module.exports = subscriptionRouter;

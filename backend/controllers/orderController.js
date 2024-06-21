@@ -30,7 +30,49 @@ const createOrder = async (req, res) => {
   }
 };
 
+// Update an existing order
+const updateOrder = async (req, res) => {
+  const { id } = req.params;
+  const { userId, orderItems, orderBill, orderDate } = req.body;
+
+  try {
+    const order = await Order.findByIdAndUpdate(
+      id,
+      { userId, orderItems, orderBill, orderDate },
+      { new: true, runValidators: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ msg: "Order not found" });
+    }
+
+    res.status(200).json(order);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Delete an order
+const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const order = await Order.findByIdAndDelete(id);
+
+    if (!order) {
+      return res.status(404).json({ msg: "Order not found" });
+    }
+
+    res.status(200).json({ msg: "Order deleted" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
 module.exports = {
   getAllOrders,
   createOrder,
+  updateOrder,
+  deleteOrder,
 };
