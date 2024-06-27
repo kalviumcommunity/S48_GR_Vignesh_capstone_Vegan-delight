@@ -1,6 +1,7 @@
 const express = require("express");
 const orderRouter = express.Router();
 const orderController = require("../controllers/orderController");
+const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
 
 // GET request to fetch all orders
 orderRouter.get("/orders", orderController.getAllOrders);

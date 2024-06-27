@@ -1,9 +1,12 @@
 const express = require("express");
 const userRouter = express.Router();
 const userController = require("../controllers/userController");
+const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
 
 // Define the endpoint to get all users
-userRouter.get("/users", userController.getAllUsers);
+userRouter.get("/users", verifyToken, isAdmin, userController.getAllUsers);
+//Define the endpoint to get user by ID
+userRouter.get("/users/:id", userController.getUserById);
 //Define the endpoint to create a new user
 userRouter.post("/createuser", userController.createUser);
 //Define the endpoint to update an existing user
