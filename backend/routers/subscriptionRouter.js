@@ -1,6 +1,7 @@
 const express = require("express");
 const subscriptionRouter = express.Router();
 const subscriptionController = require("../controllers/subscriptionController");
+const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
 
 // Define the endpoint to get all subscriptions
 subscriptionRouter.get(

@@ -1,6 +1,7 @@
 const express = require("express");
 const walletRouter = express.Router();
 const walletController = require("../controllers/walletController");
+const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
 
 // Define the endpoint to get all wallets
 walletRouter.get("/wallets", walletController.getAllWallets);

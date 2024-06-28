@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -10,18 +11,35 @@ const getAllUsers = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+// Get user by ID
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
 
 // Create a new user
 const createUser = async (req, res) => {
   try {
     const { username, usertype, email, mobile, address, authKey } = req.body;
+
+    // Hash the authKey
+    const hashedAuthKey = await bcrypt.hash(authKey, 10);
+
     const newUser = new User({
       username,
       usertype,
       email,
       mobile,
       address,
-      authKey,
+      authKey: hashedAuthKey, // Store hashed authKey in the database
     });
 
     const user = await newUser.save();
@@ -74,6 +92,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  getUserById,
   createUser,
   updateUser,
   deleteUser,

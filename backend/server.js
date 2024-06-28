@@ -1,10 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-dotenv.config();
-
+const cookieParser = require("cookie-parser");
 const app = express();
+
+// some configuration
+dotenv.config();
 app.use(express.json());
+app.use(cookieParser());
 
 // Connect to Database
 connectDB();
@@ -17,6 +20,7 @@ const walletRouter = require("./routers/walletRouter");
 const orderRouter = require("./routers/orderRouter");
 const employeeRouter = require("./routers/employeeRouter");
 const inventoryRouter = require("./routers/inventoryRouter");
+const authRouter = require("./routers/authrouter");
 
 // Use Routes with Base API URL
 app.use("/", userRouter);
@@ -26,6 +30,7 @@ app.use("/", walletRouter);
 app.use("/", orderRouter);
 app.use("/", employeeRouter);
 app.use("/", inventoryRouter);
+app.use("/", authRouter);
 
 // Ping pong route (for testing)
 app.get("/ping", (req, res) => {
