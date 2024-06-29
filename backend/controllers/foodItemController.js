@@ -1,4 +1,4 @@
-const FoodItem = require("../models/FoodItem");
+const FoodItem = require("../models/foodItem");
 
 // Get all food items
 const getAllFoodItems = async (req, res) => {
