@@ -7,10 +7,10 @@ const foodItemSchema = new mongoose.Schema(
     description: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
-  }
- // { collection: "fooditems" }
+  },
+{ collection: "fooditems" }
 );
 
-const FoodItem = mongoose.model("fooditems", foodItemSchema);
+const FoodItem = mongoose.model("FoodItems", foodItemSchema);
 
 module.exports = FoodItem;
