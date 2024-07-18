@@ -32,3 +32,6 @@ VeganDelight will improve dietary habits in urban settings, providing a trusted 
    `
 2. Install dependencies: `npm install`
 3. Start the development server: `npm start`
+
+## Links:
+1. backend deployed link :https://s48-gr-vignesh-capstone-vegan-delight.onrender.com/
