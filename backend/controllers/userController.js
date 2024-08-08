@@ -11,6 +11,7 @@ const getAllUsers = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
 // Get user by ID
 const getUserById = async (req, res) => {
   try {
@@ -49,17 +50,25 @@ const createUser = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
 // Update an existing user
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { username, usertype, email, mobile, address, authKey } = req.body;
+  const { username, email, mobile, address, authKey } = req.body;
 
   try {
-    const user = await User.findByIdAndUpdate(
-      id,
-      { username, usertype, email, mobile, address, authKey },
-      { new: true, runValidators: true }
-    );
+    const updateData = { username, email, mobile, address };
+
+    // Check if a new authKey is provided and hash it
+    if (authKey) {
+      const hashedAuthKey = await bcrypt.hash(authKey, 10);
+      updateData.authKey = hashedAuthKey;
+    }
+
+    const user = await User.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!user) {
       return res.status(404).json({ msg: "User not found" });

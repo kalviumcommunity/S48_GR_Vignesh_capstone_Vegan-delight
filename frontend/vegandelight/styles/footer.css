@@ -1,0 +1,14 @@
+.footer {
+  height: 10rem;
+  width: 90rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
+  background-color: rgb(92, 250, 129);
+}
+.footer-section {
+  margin: 1.8rem;
+}

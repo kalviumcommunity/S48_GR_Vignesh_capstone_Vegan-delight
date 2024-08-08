@@ -22,8 +22,19 @@ const loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
-    res.cookie("token", token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-    res.status(200).json({ message: "Login successful" });
+
+    // Set the token in an HttpOnly cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.status(200).json({
+      message: "Login successful",
+      userId: user._id,
+      usertype: user.usertype,
+    });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }

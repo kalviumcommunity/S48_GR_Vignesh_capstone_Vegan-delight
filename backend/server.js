@@ -3,12 +3,19 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const cookieParser = require("cookie-parser");
 const app = express();
-
+const cors = require("cors");
 // some configuration
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
-
+//cors configuration
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 // Connect to Database
 connectDB();
 
@@ -22,7 +29,7 @@ const employeeRouter = require("./routers/employeeRouter");
 const inventoryRouter = require("./routers/inventoryRouter");
 const authRouter = require("./routers/authrouter");
 
-// Use Routes with Base API URL
+// Use Routes
 app.use("/", userRouter);
 app.use("/", foodItemRouter);
 app.use("/", subscriptionRouter);
