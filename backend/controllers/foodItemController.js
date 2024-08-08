@@ -6,39 +6,43 @@ const getAllFoodItems = async (req, res) => {
     const foodItems = await FoodItem.find();
     res.status(200).json(foodItems);
   } catch (err) {
-    console.error(err.message);
+    console.error("Error fetching food items:", err.message);
     res.status(500).send("Server Error");
   }
 };
 
 // Create a new food item
 const createFoodItem = async (req, res) => {
+  const { name, calories, description, price, category } = req.body;
+  const image = req.file ? req.file.filename : "";
+
   try {
-    const { name, calories, description, price, category } = req.body;
     const newFoodItem = new FoodItem({
+      image,
       name,
       calories,
       description,
       price,
       category,
     });
-
-    const foodItem = await newFoodItem.save();
-    res.status(201).json(foodItem);
+    const savedFoodItem = await newFoodItem.save();
+    res.status(201).json(savedFoodItem);
   } catch (err) {
-    console.error(err.message);
+    console.error("Error creating food item:", err.message);
     res.status(500).send("Server Error");
   }
 };
+
 // Update an existing food item
 const updateFoodItem = async (req, res) => {
   const { id } = req.params;
   const { name, calories, description, price, category } = req.body;
+  const image = req.file ? req.file.filename : "";
 
   try {
     const foodItem = await FoodItem.findByIdAndUpdate(
       id,
-      { name, calories, description, price, category },
+      { image, name, calories, description, price, category },
       { new: true, runValidators: true }
     );
 
@@ -48,7 +52,7 @@ const updateFoodItem = async (req, res) => {
 
     res.status(200).json(foodItem);
   } catch (err) {
-    console.error(err.message);
+    console.error("Error updating food item:", err.message);
     res.status(500).send("Server Error");
   }
 };
@@ -66,10 +70,11 @@ const deleteFoodItem = async (req, res) => {
 
     res.status(200).json({ msg: "Food item deleted" });
   } catch (err) {
-    console.error(err.message);
+    console.error("Error deleting food item:", err.message);
     res.status(500).send("Server Error");
   }
 };
+
 module.exports = {
   getAllFoodItems,
   createFoodItem,

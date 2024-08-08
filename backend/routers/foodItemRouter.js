@@ -1,30 +1,34 @@
 const express = require("express");
+const path = require("path"); // Ensure path is imported
 const foodItemRouter = express.Router();
 const foodItemController = require("../controllers/foodItemController");
-const { verifyToken, isAdmin } = require("../middlewares/authMiddleware");
+const upload = require("../controllers/filecontroller");
 
-// Define the endpoint to get all food items
+// Define route to upload a file
+foodItemRouter.post("/upload", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file selected");
+  }
+  res.json({ path: req.file.path });
+});
+
+// Define routes for CRUD operations
 foodItemRouter.get("/fooditems", foodItemController.getAllFoodItems);
-//Define the endpoint to create a new food Item
 foodItemRouter.post(
   "/createfooditem",
-  verifyToken,
-  isAdmin,
+  upload.single("file"),
   foodItemController.createFoodItem
 );
-//Define the endpoint to update an existing food Item
 foodItemRouter.put(
   "/updatefooditem/:id",
-  verifyToken,
-  isAdmin,
+  upload.single("file"),
   foodItemController.updateFoodItem
 );
-//Define the endpoint to Delete an existing food Item
-foodItemRouter.delete(
-  "/deletefooditem/:id",
-  verifyToken,
-  isAdmin,
-  foodItemController.deleteFoodItem
-);
+foodItemRouter.delete("/deletefooditem/:id", foodItemController.deleteFoodItem);
+
+// Serve uploaded images
+const uploadsPath = path.join(__dirname, "../uploads");
+console.log(`Serving static files from: ${uploadsPath}`);
+foodItemRouter.use("/uploads", express.static(uploadsPath));
 
 module.exports = foodItemRouter;

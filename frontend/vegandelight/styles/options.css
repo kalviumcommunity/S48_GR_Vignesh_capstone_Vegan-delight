@@ -1,0 +1,46 @@
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  width: 90vw;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Styling for the logo */
+.logo img {
+  width: 10vw;
+  height: auto;
+}
+
+/* Styling for the navigation links */
+.nav-links ul {
+  list-style-type: none;
+  width: 50vw;
+  margin-left: 3vw;
+  padding: 1vw;
+  display: flex;
+  gap: 10vw;
+  background-color: rgb(92, 250, 129);
+  border-radius: 30px;
+  font-weight: 800;
+}
+
+.nav-links ul li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links ul li a {
+  text-decoration: none;
+  color: #333333;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-links ul li a:hover {
+  color: #007bff;
+}

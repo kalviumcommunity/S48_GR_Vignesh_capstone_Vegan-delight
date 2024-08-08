@@ -1,0 +1,82 @@
+.profile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.profile-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.profile-container div {
+  margin-bottom: 20px;
+}
+
+.profile-container p {
+  margin-bottom: 10px;
+}
+
+.profile-container form {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 10px;
+}
+
+.profile-container label {
+  font-weight: bold;
+}
+
+.profile-container input[type="text"],
+.profile-container input[type="email"],
+.profile-container input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-container .buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-container .buttons button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.profile-container .buttons button:hover {
+  background-color: #0056b3;
+}
+
+.profile-container .buttons button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.profile-container .buttons button:first-child {
+  background-color: #28a745;
+}
+
+.profile-container .buttons button:first-child:hover {
+  background-color: #218838;
+}
+
+.profile-container .buttons button:last-child {
+  background-color: #dc3545;
+}
+
+.profile-container .buttons button:last-child:hover {
+  background-color: #c82333;
+}

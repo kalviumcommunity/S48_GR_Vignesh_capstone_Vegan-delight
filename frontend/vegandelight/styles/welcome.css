@@ -1,0 +1,17 @@
+.welcome {
+  background-image: url("../assets/welcome-bg.jpg");
+  width: 90rem;
+  height: 40rem;
+  background-size: cover;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.8rem;
+  text-align: center;
+  color: whitesmoke;
+  align-items: center;
+}
+.welcome p h1 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 10rem;
+}

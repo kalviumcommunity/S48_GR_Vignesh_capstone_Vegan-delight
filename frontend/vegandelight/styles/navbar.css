@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar-brand {
+  color: #fff;
+}
+
+.navbar-search input {
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.navbar-filter {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  margin-left: 20px;
+}
+
+.navbar-filter select {
+  margin-left: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+}

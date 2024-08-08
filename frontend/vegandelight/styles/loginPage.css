@@ -1,0 +1,59 @@
+/* Container for the whole login page */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Container for the login form */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  text-align: center;
+}
+
+/* Styling for form groups */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Styling for form labels */
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Styling for form inputs */
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+/* Styling for the login button */
+.login-button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Hover effect for the login button */
+.login-button:hover {
+  background-color: #0056b3;
+}
