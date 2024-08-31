@@ -1,0 +1,50 @@
+.manage-catalogue {
+  display: flex;
+  flex-direction: column;
+}
+
+.manage-catalogue-controls {
+  margin-bottom: 1rem;
+}
+
+.search-filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-input,
+.filter-select {
+  padding: 0.5rem;
+}
+
+.manage-catalogue-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.food-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.food-item-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.update-food-item-container {
+  margin-top: 1rem;
+  position: relative; /* Adjust as needed */
+}
+
+.update-food-item {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background: #fff;
+  position: absolute; /* Adjust as needed */
+  top: 0;
+  right: 0;
+  width: 300px; /* Adjust as needed */
+}

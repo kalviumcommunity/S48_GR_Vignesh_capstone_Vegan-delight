@@ -33,7 +33,7 @@ const Profile = () => {
           email: response.data.email,
           mobile: response.data.mobile,
           address: response.data.address,
-          authKey: "", // Reset authKey since it's not shown
+          authKey: "",
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -68,8 +68,7 @@ const Profile = () => {
     try {
       await axios.delete(`http://localhost:3000/deleteuser/${userId}`);
       alert("Profile deleted successfully.");
-      // Optionally, redirect or handle post-deletion logic
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Error deleting user:", error);
     }

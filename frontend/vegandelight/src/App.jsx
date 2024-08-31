@@ -4,9 +4,10 @@ import LandingPage from "../pages/landingPage";
 import LoginPage from "../pages/loginPage";
 import RegisterPage from "../pages/registerPage";
 import HomePage from "../pages/homePage";
-import AddFoodItem from "../components/addFooditem";
+import AddFoodItem from "../admincomponents/addFooditem";
 import CartPage from "../pages/cartPage";
 import ProfilePage from "../pages/profilePage";
+import AdminHome from "../adminpages/adminhome";
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/addfooditem" element={<AddFoodItem />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/adminhome" element={<AdminHome />} />
       </Routes>
     </Router>
   );

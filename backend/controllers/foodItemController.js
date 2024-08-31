@@ -40,23 +40,30 @@ const updateFoodItem = async (req, res) => {
   const image = req.file ? req.file.filename : "";
 
   try {
-    const foodItem = await FoodItem.findByIdAndUpdate(
-      id,
-      { image, name, calories, description, price, category },
-      { new: true, runValidators: true }
-    );
+    // Find the food item by ID
+    const foodItem = await FoodItem.findById(id);
 
     if (!foodItem) {
       return res.status(404).json({ msg: "Food item not found" });
     }
 
-    res.status(200).json(foodItem);
+    // Update only the fields that are provided in the request
+    if (name) foodItem.name = name;
+    if (calories) foodItem.calories = calories;
+    if (description) foodItem.description = description;
+    if (price) foodItem.price = price;
+    if (category) foodItem.category = category;
+    if (image) foodItem.image = image;
+
+    // Save the updated food item
+    const updatedFoodItem = await foodItem.save();
+
+    res.status(200).json(updatedFoodItem);
   } catch (err) {
     console.error("Error updating food item:", err.message);
     res.status(500).send("Server Error");
   }
 };
-
 // Delete a food item
 const deleteFoodItem = async (req, res) => {
   const { id } = req.params;
