@@ -16,7 +16,7 @@ const LoginPage = () => {
         authKey,
       });
 
-      // Extract userId from the response
+      // Extract userId and usertype from the response
       const { userId, usertype } = response.data;
 
       // Store userId and usertype in sessionStorage
@@ -29,6 +29,10 @@ const LoginPage = () => {
       console.error("Login failed:", error);
       alert("Invalid credentials. Please try again.");
     }
+  };
+
+  const handleSignupRedirect = () => {
+    navigate("/register");
   };
 
   return (
@@ -55,6 +59,10 @@ const LoginPage = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <div>
+        <p>Don't have an account?</p>
+        <button onClick={handleSignupRedirect}>Sign Up</button>
+      </div>
     </div>
   );
 };
