@@ -18,13 +18,16 @@ const LoginPage = () => {
 
       // Extract userId and usertype from the response
       const { userId, usertype } = response.data;
-
       // Store userId and usertype in sessionStorage
       sessionStorage.setItem("userId", userId);
       sessionStorage.setItem("userType", usertype);
 
-      // Navigate to the home page or another part of your application
-      navigate("/home");
+      // Navigate to the home page of  application
+      if (usertype === "admin") {
+        navigate("/adminhome");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
       console.error("Login failed:", error);
       alert("Invalid credentials. Please try again.");
