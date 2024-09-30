@@ -1,143 +1,96 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-// import "./admincomponentstyles.css";
+import React, { useState } from "react";
+import "./catalogueStyles.css";
+const UpdateFoodItem = ({ foodItem, onUpdate, onClose }) => {
+  const [name, setName] = useState(foodItem.name || "");
+  const [description, setDescription] = useState(foodItem.description || "");
+  const [price, setPrice] = useState(foodItem.price || "");
+  const [image, setImage] = useState(null);
 
-const UpdateFoodItem = ({ foodItemId, onUpdateSuccess }) => {
-  const [foodItem, setFoodItem] = useState({
-    name: "",
-    calories: "",
-    description: "",
-    price: "",
-    category: "",
-    image: null,
-  });
-
-  const [message, setMessage] = useState("");
-
-  // Fetch the existing food item details to pre-fill the form
-  useEffect(() => {
-    const fetchFoodItem = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/fooditems/${foodItemId}`
-        );
-        setFoodItem(response.data);
-      } catch (error) {
-        console.error("Error fetching food item:", error.message);
-      }
-    };
-
-    fetchFoodItem();
-  }, [foodItemId]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFoodItem((prevFoodItem) => ({
-      ...prevFoodItem,
-      [name]: value,
-    }));
-  };
-
-  const handleFileChange = (e) => {
-    setFoodItem((prevFoodItem) => ({
-      ...prevFoodItem,
-      image: e.target.files[0],
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    if (foodItem.name) formData.append("name", foodItem.name);
-    if (foodItem.calories) formData.append("calories", foodItem.calories);
-    if (foodItem.description)
-      formData.append("description", foodItem.description);
-    if (foodItem.price) formData.append("price", foodItem.price);
-    if (foodItem.category) formData.append("category", foodItem.category);
-    if (foodItem.image) formData.append("file", foodItem.image);
+    const updatedItem = {
+      name,
+      description,
+      price,
+      image: image ? image.name : foodItem.image, // Use the existing image if no new one is uploaded
+    };
 
     try {
-      const response = await axios.put(
-        `http://localhost:3000/updatefooditem/${foodItemId}`,
-        formData,
+      const response = await fetch(
+        `http://localhost:3000/updatefooditem/${foodItem._id}`,
         {
+          method: "PATCH",
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
+          body: JSON.stringify(updatedItem),
         }
       );
-      setMessage("Food item updated successfully!");
-      if (onUpdateSuccess) {
-        onUpdateSuccess(response.data);
+
+      if (response.ok) {
+        const result = await response.json();
+        onUpdate(result); // Call the parent onUpdate function
+        onClose(); // Close the popup after successful update
+      } else {
+        console.error("Error updating food item:", response.statusText);
       }
     } catch (error) {
-      console.error("Error updating food item:", error.message);
-      setMessage("Failed to update food item.");
+      console.error("Error updating food item:", error);
     }
   };
 
   return (
-    <div className="adminforms">
-      <h2>Update Food Item</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={foodItem.name}
-            onChange={handleChange}
-            placeholder="Enter new name"
-          />
-        </div>
-        <div>
-          <label>Calories:</label>
-          <input
-            type="number"
-            name="calories"
-            value={foodItem.calories}
-            onChange={handleChange}
-            placeholder="Enter new calories"
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            name="description"
-            value={foodItem.description}
-            onChange={handleChange}
-            placeholder="Enter new description"
-          />
-        </div>
-        <div>
-          <label>Price:</label>
-          <input
-            type="number"
-            name="price"
-            value={foodItem.price}
-            onChange={handleChange}
-            placeholder="Enter new price"
-          />
-        </div>
-        <div>
-          <label>Category:</label>
-          <input
-            type="text"
-            name="category"
-            value={foodItem.category}
-            onChange={handleChange}
-            placeholder="Enter new category"
-          />
-        </div>
-        <div>
-          <label>Image:</label>
-          <input type="file" name="file" onChange={handleFileChange} />
-        </div>
-        <button type="submit">Update Food Item</button>
-      </form>
-      {message && <p>{message}</p>}
-    </div>
+    <form onSubmit={handleUpdate} className="update-food-item__form">
+      <h2 className="update-food-item__title">Update Food Item</h2>
+
+      <div className="update-food-item__group">
+        <label className="update-food-item__label">Name:</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="update-food-item__input"
+          required
+        />
+      </div>
+
+      <div className="update-food-item__group">
+        <label className="update-food-item__label">Description:</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="update-food-item__textarea"
+          required
+        />
+      </div>
+
+      <div className="update-food-item__group">
+        <label className="update-food-item__label">Price:</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="update-food-item__input"
+          required
+        />
+      </div>
+
+      <div className="update-food-item__group">
+        <label className="update-food-item__label">
+          Upload New Image (optional):
+        </label>
+        <input
+          type="file"
+          onChange={(e) => setImage(e.target.files[0])}
+          className="update-food-item__file-input"
+        />
+      </div>
+
+      <button type="submit" className="update-food-item__submit-button">
+        Update Item
+      </button>
+    </form>
   );
 };
 

@@ -6,6 +6,7 @@ import ManageCatalogue from "../Managecatalogue/managecatalogue";
 import ManageWallets from "../Managewallets/managewallets";
 import ManageInventory from "../Manageinventory/manageinventory";
 import ManageEmployees from "../Manageemployees/manageemployees";
+import "./dashBoardStyles.css";
 
 function AdminHome() {
   const [selectedComponent, setSelectedComponent] = useState("manageOrders");
@@ -30,11 +31,11 @@ function AdminHome() {
   };
 
   return (
-    <div className="flex">
-      <div>
+    <div className="admin-container">
+      <div className="sidebar-container">
         <Sidebar onSelect={setSelectedComponent} />
       </div>
-      <div className="w-4/5 p-4">{renderComponent()}</div>
+      <div className="content-container">{renderComponent()}</div>
     </div>
   );
 }

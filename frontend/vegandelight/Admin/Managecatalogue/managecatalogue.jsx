@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdateFoodItem from "./updatefooditem";
 import AddFoodItem from "./addFooditem";
-// import "./adminpagesstyles.css";
-
+import "./catalogueStyles.css";
 const ManageCatalogue = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +41,6 @@ const ManageCatalogue = () => {
   const handleUpdateClick = (foodItem, e) => {
     setSelectedFoodItem(foodItem);
     setEditingItemId(foodItem._id);
-    // Position the popup next to the item clicked
     const { clientX, clientY } = e;
     setPopupPosition({ top: clientY, left: clientX });
   };
@@ -68,7 +66,6 @@ const ManageCatalogue = () => {
   };
 
   const handleAddFoodClick = (e) => {
-    // Position the popup next to the add button
     const { clientX, clientY } = e;
     setPopupPosition({ top: clientY, left: clientX });
     setShowAddFoodPopup(true);
@@ -98,42 +95,40 @@ const ManageCatalogue = () => {
   }
 
   return (
-    <div className="manage-catalogue-container">
-      <h1 className="catalogue-title">Manage Catalogue</h1>
-      <div className="search-filter-container">
-        <div className="search-filter-inputs">
-          <input
-            type="text"
-            placeholder="Search by name"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="search-input"
-          />
-          <select
-            value={filter}
-            onChange={handleFilterChange}
-            className="filter-select"
-          >
-            <option value="">All Categories</option>
-            <option value="soups">Soups</option>
-            <option value="starters">Starters</option>
-            <option value="snacks">Snacks</option>
-            <option value="salads">Salads</option>
-          </select>
-        </div>
-        <button onClick={handleAddFoodClick} className="add-food-button">
+    <div className="manage-catalogue">
+      <h1 className="manage-catalogue__title">Manage Catalogue</h1>
+      <div className="manage-catalogue__controls">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="manage-catalogue__search-input"
+        />
+        <select
+          value={filter}
+          onChange={handleFilterChange}
+          className="manage-catalogue__filter-select"
+        >
+          <option value="">All Categories</option>
+          <option value="soups">Soups</option>
+          <option value="starters">Starters</option>
+          <option value="snacks">Snacks</option>
+          <option value="salads">Salads</option>
+        </select>
+        <button
+          onClick={handleAddFoodClick}
+          className="manage-catalogue__add-button"
+        >
           Add Food Item
         </button>
       </div>
       {showAddFoodPopup && (
-        <div
-          className="popup-container"
-          style={{ top: popupPosition.top, left: popupPosition.left }}
-        >
+        <div className="popup-container">
           <div className="popup-content">
             <button
               onClick={() => setShowAddFoodPopup(false)}
-              className="cancel-button"
+              className="popup-content__cancel-button"
             >
               Cancel
             </button>
@@ -141,66 +136,64 @@ const ManageCatalogue = () => {
           </div>
         </div>
       )}
-      <div className="catalogue-list">
+      <div className="manage-catalogue__list">
         {filteredItems.length > 0 ? (
-          <ul className="catalogue-grid">
+          <ul className="manage-catalogue__grid">
             {filteredItems.map((foodItem) => (
-              <li key={foodItem._id} className="catalogue-item">
-                <div className="item-image-container">
+              <li key={foodItem._id} className="manage-catalogue__item">
+                <div className="manage-catalogue__item-image">
                   <img
                     src={`http://localhost:3000/uploads/${foodItem.image}`}
                     alt={foodItem.name}
-                    className="item-image"
+                    className="manage-catalogue__image"
                   />
                 </div>
-                <div className="item-details">
-                  <h2 className="item-title">{foodItem.name}</h2>
-                  <p className="item-description">{foodItem.description}</p>
-                  <p className="item-calories">Calories: {foodItem.calories}</p>
-                  <p className="item-price">Price: ₹{foodItem.price}</p>
-                  <p className="item-category">Category: {foodItem.category}</p>
-                  <div className="item-actions">
-                    <button
-                      onClick={(e) => handleUpdateClick(foodItem, e)}
-                      className="update-button"
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() => handleDeleteClick(foodItem._id)}
-                      className="delete-button"
-                    >
-                      Delete
-                    </button>
-                  </div>
+                <h2 className="manage-catalogue__item-name">{foodItem.name}</h2>
+                <p className="manage-catalogue__item-description">
+                  {foodItem.description}
+                </p>
+                <div className="manage-catalogue__item-price">
+                  ₹{foodItem.price}
                 </div>
-                {editingItemId === foodItem._id && selectedFoodItem && (
-                  <div
-                    className="popup-container"
-                    style={{ top: popupPosition.top, left: popupPosition.left }}
-                  >
-                    <div className="popup-content">
-                      <button
-                        onClick={() => setEditingItemId(null)}
-                        className="cancel-button"
-                      >
-                        Cancel
-                      </button>
-                      <UpdateFoodItem
-                        foodItem={selectedFoodItem}
-                        onClose={() => setEditingItemId(null)}
-                        onUpdate={handleUpdate}
-                      />
-                    </div>
-                  </div>
-                )}
+                <button
+                  onClick={(e) => handleUpdateClick(foodItem, e)}
+                  className="manage-catalogue__update-button"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => handleDeleteClick(foodItem._id)}
+                  className="manage-catalogue__delete-button"
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
         ) : (
-          <div className="no-items-message">No food items available.</div>
+          <p className="manage-catalogue__no-items">No food items found.</p>
         )}
       </div>
+      {editingItemId && selectedFoodItem && (
+        <div
+          className="popup-container"
+          style={{ top: popupPosition.top, left: popupPosition.left }}
+        >
+          <div className="popup-content">
+            <button
+              onClick={() => setEditingItemId(null)}
+              className="popup-content__cancel-button"
+            >
+              Cancel
+            </button>
+            <UpdateFoodItem
+              foodItem={selectedFoodItem}
+              onUpdate={handleUpdate}
+              onClose={() => setEditingItemId(null)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
