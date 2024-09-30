@@ -1,0 +1,67 @@
+/* Admin container and layout */
+.admin-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar-container {
+  width: 20%;
+  background-color: #4caf50; /* Green color for sidebar */
+  height: 100%;
+  padding: 20px;
+}
+
+.content-container {
+  width: 80%;
+  padding: 20px;
+}
+
+/* Sidebar styling */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-btn {
+  background-color: #66bb6a; /* Lighter green for buttons */
+  border: none;
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar-btn:hover {
+  background-color: #81c784; /* Slightly lighter shade on hover */
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .sidebar-container {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .content-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .sidebar-btn {
+    padding: 8px;
+  }
+}

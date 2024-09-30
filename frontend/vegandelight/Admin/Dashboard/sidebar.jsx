@@ -7,45 +7,36 @@ import {
   FaTags,
   FaUserTie,
 } from "react-icons/fa";
-
+import "./dashBoardStyles.css";
 const Sidebar = ({ onSelect }) => {
   return (
-    <div className="flex flex-col bg-green-300 h-full p-4">
-      <button
-        className="flex items-center p-2 text-black hover:bg-green-400 rounded transition duration-300"
-        onClick={() => onSelect("manageOrders")}
-      >
-        <FaShoppingCart className="mr-2" /> Manage Orders
+    <div className="sidebar">
+      <button className="sidebar-btn" onClick={() => onSelect("manageOrders")}>
+        <FaShoppingCart className="icon" /> Manage Orders
+      </button>
+      <button className="sidebar-btn" onClick={() => onSelect("manageUsers")}>
+        <FaUsers className="icon" /> Manage Users
       </button>
       <button
-        className="flex items-center p-2 text-black hover:bg-green-400 rounded transition duration-300 mt-2"
-        onClick={() => onSelect("manageUsers")}
-      >
-        <FaUsers className="mr-2" /> Manage Users
-      </button>
-      <button
-        className="flex items-center p-2 text-black hover:bg-green-400 rounded transition duration-300 mt-2"
+        className="sidebar-btn"
         onClick={() => onSelect("manageCatalogue")}
       >
-        <FaTags className="mr-2" /> Manage Catalogue
+        <FaTags className="icon" /> Manage Catalogue
+      </button>
+      <button className="sidebar-btn" onClick={() => onSelect("manageWallets")}>
+        <FaWallet className="icon" /> Manage Wallets
       </button>
       <button
-        className="flex items-center p-2 text-black hover:bg-green-400 rounded transition duration-300 mt-2"
-        onClick={() => onSelect("manageWallets")}
-      >
-        <FaWallet className="mr-2" /> Manage Wallets
-      </button>
-      <button
-        className="flex items-center p-2 text-black hover:bg-green-400 rounded transition duration-300 mt-2"
+        className="sidebar-btn"
         onClick={() => onSelect("manageInventory")}
       >
-        <FaBox className="mr-2" /> Manage Inventory
+        <FaBox className="icon" /> Manage Inventory
       </button>
       <button
-        className="flex items-center p-2 text-black hover:bg-green-400 rounded transition duration-300 mt-2"
+        className="sidebar-btn"
         onClick={() => onSelect("manageEmployees")}
       >
-        <FaUserTie className="mr-2" /> Manage Employees
+        <FaUserTie className="icon" /> Manage Employees
       </button>
     </div>
   );
